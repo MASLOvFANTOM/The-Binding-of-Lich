@@ -1,16 +1,21 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = System.Object;
 
 public class Cell : MonoBehaviour
 {
-    public Sprite[] grilleState = new Sprite[2];
-    public Image grilleSpriteRenderer;
     public string tag;
+    private static string selectObjectTag;
+    public bool characterOpen;
+    public Sprite[] grilleState = new Sprite[2]; //0-close, 1-open
+    public Image grilleImage;
     public Text statsTextDescription;
     public Text statsTextHealth;
     public Text statsTextDamage;
+    public Animator StatsBoardAnimator;
     
     //Json files
     private PlayerDataOpenCell _playerDataOpenCell= new PlayerDataOpenCell();
@@ -29,10 +34,18 @@ public class Cell : MonoBehaviour
             SavePlayerDataOpenCell();
         }
 
-        if (tag == "knight")
+        for (int i = 0; i < _playerDataOpenCell.listOpenedCharacter.Count; i++)
         {
-            grilleSpriteRenderer.sprite = grilleState[1];
-            // statsTextDescription.text =
+            if (_playerDataOpenCell.listOpenedCharacter[i] == tag)
+            {
+                characterOpen = true;
+                grilleImage.sprite = grilleState[1];
+            }
+            else
+            {
+                print(gameObject.name);
+                grilleImage.sprite = grilleState[0];
+            }
         }
     }
 
@@ -40,11 +53,37 @@ public class Cell : MonoBehaviour
     {
         File.WriteAllText(pathToPlayerDataOpenCell, JsonUtility.ToJson(_playerDataOpenCell));
     }
-    
+
+    private void OnApplicationQuit()
+    {
+        SavePlayerDataOpenCell();
+    }
+
+    public void MouseDown()
+    {
+        if (characterOpen)
+        {
+            selectObjectTag = tag;
+            switch (tag)
+            {
+                case "knight":
+                    statsTextDescription.text = _playerDataOpenCell.Knight[2].ToString();
+                    statsTextHealth.text = _playerDataOpenCell.Knight[0].ToString();
+                    statsTextDamage.text = _playerDataOpenCell.Knight[1].ToString();
+                    break;
+                case "wizard":
+                    statsTextDescription.text = _playerDataOpenCell.Wizard[2].ToString();
+                    statsTextHealth.text = _playerDataOpenCell.Wizard[0].ToString();
+                    statsTextDamage.text = _playerDataOpenCell.Wizard[1].ToString();
+                    break;
+            }
+        }
+    }
 }
 [Serializable]
 public class PlayerDataOpenCell
 {
-    public string description, heath, damage;
-    // public Array Knight =[3, 2, "dsadasd"]
+    public List<string> listOpenedCharacter = new List<string>{"knight", "wizard"};
+    public List<object> Knight = new List<object>() {3, 1, "ЭТО ГЕРОЙ ВСЕМ ГЕРОЙМ ГЕРОЙ. ВЗМАХ МЕЧА ЕГО РУБИТ КАМНИ, А ТОПОТ ЕГО ГЛУШИТ ВРАГОВ." };
+    public List<object> Wizard = new List<object>() {2, 1, "THIS IS WIZARD. Он очень хлипок, но силён умом!" };
 }
