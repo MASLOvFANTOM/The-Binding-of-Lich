@@ -20,6 +20,7 @@ public class ButtonMenu : MonoBehaviour
 
     public void Credits()
     {
+        settingsBoard.SetTrigger("UnSelect");
         //call scene with Credits
     }
 

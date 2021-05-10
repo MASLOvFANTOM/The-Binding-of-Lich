@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -34,6 +35,7 @@ public class Cell : MonoBehaviour
             SavePlayerDataOpenCell();
         }
 
+        //проверка на наличие персонажа
         for (int i = 0; i < _playerDataOpenCell.listOpenedCharacter.Count; i++)
         {
             if (_playerDataOpenCell.listOpenedCharacter[i] == tag)
@@ -41,7 +43,7 @@ public class Cell : MonoBehaviour
                 characterOpen = true;
                 grilleImage.sprite = grilleState[1];
             }
-            else
+            else if(_playerDataOpenCell.listOpenedCharacter[i] != tag & !characterOpen)
             {
                 print(gameObject.name);
                 grilleImage.sprite = grilleState[0];
@@ -61,6 +63,24 @@ public class Cell : MonoBehaviour
 
     public void MouseDown()
     {
+        StartCoroutine(MouseDownCoorotine());
+    }
+
+    IEnumerator MouseDownCoorotine()
+    {
+        //анимация
+        if (selectObjectTag != null)
+        {
+            StatsBoardAnimator.SetTrigger("ReCall");
+        }
+        else
+        {
+            StatsBoardAnimator.SetTrigger("Call");
+        }
+
+        if(selectObjectTag != null) yield return new WaitForSeconds(0.3f);
+        
+        //Смена текста параметров
         if (characterOpen)
         {
             selectObjectTag = tag;
@@ -78,12 +98,13 @@ public class Cell : MonoBehaviour
                     break;
             }
         }
+        StopCoroutine(MouseDownCoorotine());
     }
 }
 [Serializable]
 public class PlayerDataOpenCell
 {
-    public List<string> listOpenedCharacter = new List<string>{"knight", "wizard"};
+    public List<string> listOpenedCharacter = new List<string>{"knight"};
     public List<object> Knight = new List<object>() {3, 1, "ЭТО ГЕРОЙ ВСЕМ ГЕРОЙМ ГЕРОЙ. ВЗМАХ МЕЧА ЕГО РУБИТ КАМНИ, А ТОПОТ ЕГО ГЛУШИТ ВРАГОВ." };
     public List<object> Wizard = new List<object>() {2, 1, "THIS IS WIZARD. Он очень хлипок, но силён умом!" };
 }
