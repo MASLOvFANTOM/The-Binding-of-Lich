@@ -103,6 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1660517610946523355}
   - component: {fileID: 2010145664539027466}
+  - component: {fileID: 5832623692267750531}
   m_Layer: 0
   m_Name: Walls
   m_TagString: Untagged
@@ -175,6 +176,44 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &5832623692267750531
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1096197777354661653}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 19.2, y: 10.8}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.62, y: 5.4}
+      - {x: 0.62, y: 5.24}
+      - {x: 0.64, y: 5.22}
+      - {x: 9.439573, y: 5.2404284}
+      - {x: 9.435745, y: -5.241501}
+      - {x: -9.427099, y: -5.267197}
+      - {x: -9.423559, y: 5.2344327}
+      - {x: -1.2980608, y: 5.230201}
+      - {x: -1.272431, y: 5.391323}
+      - {x: -9.599999, y: 5.4}
+      - {x: -9.599999, y: -5.4}
+      - {x: 9.599999, y: -5.4}
+      - {x: 9.599999, y: 5.4}
 --- !u!1 &2655670577833919417
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,7 +388,7 @@ GameObject:
   - component: {fileID: 5977759916788556639}
   m_Layer: 0
   m_Name: Center
-  m_TagString: Untagged
+  m_TagString: CenterRoom
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -425,5 +464,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 18.870537, y: 10.359982}
   m_EdgeRadius: 0

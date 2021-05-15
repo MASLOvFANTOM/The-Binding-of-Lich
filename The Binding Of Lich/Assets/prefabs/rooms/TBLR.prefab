@@ -149,6 +149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8689386483966435719}
   - component: {fileID: 2692283560297209994}
+  - component: {fileID: 2863253578465809475}
   m_Layer: 0
   m_Name: Walls
   m_TagString: Untagged
@@ -221,6 +222,57 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &2863253578465809475
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406886332376644010}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 19.2, y: 10.8}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -9.594409, y: -1.0135405}
+      - {x: -9.599999, y: -5.4}
+      - {x: -1.2811642, y: -5.396473}
+      - {x: -1.2988013, y: -5.249383}
+      - {x: -9.441815, y: -5.244854}
+      - {x: -9.445031, y: -1.0135405}
+    - - {x: 9.42, y: -1}
+      - {x: 9.440031, y: -5.218289}
+      - {x: 0.6462463, y: -5.245832}
+      - {x: 0.63458127, y: -5.391251}
+      - {x: 9.599999, y: -5.4}
+      - {x: 9.599999, y: -0.97999996}
+      - {x: 9.44, y: -0.97999996}
+    - - {x: -1.26, y: 5.4}
+      - {x: -9.599999, y: 5.4}
+      - {x: -9.599999, y: 0.9}
+      - {x: -9.44, y: 0.9}
+      - {x: -9.41, y: 0.90999997}
+      - {x: -9.42776, y: 5.246846}
+      - {x: -1.26, y: 5.23}
+    - - {x: 0.62, y: 5.4}
+      - {x: 0.62, y: 5.2}
+      - {x: 9.439786, y: 5.220023}
+      - {x: 9.433585, y: 0.91044813}
+      - {x: 9.599999, y: 0.9}
+      - {x: 9.599999, y: 5.4}
 --- !u!1 &1427255718863922139
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,7 +380,7 @@ GameObject:
   - component: {fileID: 601846442700185772}
   m_Layer: 0
   m_Name: Center
-  m_TagString: Untagged
+  m_TagString: CenterRoom
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -404,7 +456,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 18.782337, y: 10.228962}
   m_EdgeRadius: 0
 --- !u!1 &5862345454823593796
 GameObject:

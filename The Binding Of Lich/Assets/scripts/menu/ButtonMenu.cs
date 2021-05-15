@@ -3,11 +3,6 @@ using UnityEngine;
 public class ButtonMenu : MonoBehaviour
 {
     public Animator settingsBoard;
-    public void Play()
-    {
-        //call menu change character
-        //call game scene
-    }
 
     public void Settigs()
     {

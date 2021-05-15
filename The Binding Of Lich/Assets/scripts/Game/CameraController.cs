@@ -5,14 +5,15 @@ public class CameraController : MonoBehaviour
 {
     private RoomTemplate templates;
     private float timeReload = 1f;
-    [SerializeField]
     private float reloading;
     private bool canReloding;
     public Animator LevelReload;
+    private GameObject player;
 
     private void Start()
     {
         templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplate>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Update()
@@ -34,12 +35,14 @@ public class CameraController : MonoBehaviour
             transform.position = new Vector3(transform.position.x - 19, transform.position.y, -10);
         }
 
+        // Рестарт уровня
         if (timeReload <= 1)
         {
             if (Input.GetKey(KeyCode.R))
             {
                 if (timeReload <= 0)
                 {
+                    player.transform.position = Vector3.zero;
                     LevelReload.SetTrigger("Start");
                     canReloding = true;
                     reloading = 1f;

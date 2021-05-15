@@ -9,8 +9,8 @@ public class MainRoomCenter : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
-    private void Start()
-    {
-        Destroy(gameObject, 4f);
-    }
+    // private void Start()
+    // {
+    //     Destroy(gameObject, 4f);
+    // }
 }

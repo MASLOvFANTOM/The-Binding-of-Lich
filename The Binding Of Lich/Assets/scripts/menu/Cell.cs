@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Object = System.Object;
 
 public class Cell : MonoBehaviour
 {
     public string tag;
-    private static string selectObjectTag;
+    public static string selectObjectTag;
     public bool characterOpen;
     public Sprite[] grilleState = new Sprite[2]; //0-close, 1-open
     public Image grilleImage;
@@ -17,6 +18,8 @@ public class Cell : MonoBehaviour
     public Text statsTextHealth;
     public Text statsTextDamage;
     public Animator StatsBoardAnimator;
+
+    public SaveDataForGame _DataForGame;
     
     //Json files
     private PlayerDataOpenCell _playerDataOpenCell= new PlayerDataOpenCell();
@@ -24,6 +27,7 @@ public class Cell : MonoBehaviour
 
     private void Start()
     {
+        _DataForGame = GameObject.FindObjectOfType<SaveDataForGame>();
         //задаём путь
         pathToPlayerDataOpenCell = Path.Combine(Application.dataPath, "PlayerDataOpenCell.json");
         if (File.Exists(pathToPlayerDataOpenCell)) // если файл найден
@@ -45,9 +49,17 @@ public class Cell : MonoBehaviour
             }
             else if(_playerDataOpenCell.listOpenedCharacter[i] != tag & !characterOpen)
             {
-                print(gameObject.name);
                 grilleImage.sprite = grilleState[0];
             }
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return) && selectObjectTag == tag)
+        {
+            _DataForGame.characterTag = selectObjectTag;
+            SceneManager.LoadScene("game");
         }
     }
 

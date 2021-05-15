@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 9114281704875113027}
   m_Layer: 0
   m_Name: Center
-  m_TagString: Untagged
+  m_TagString: CenterRoom
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -437,7 +437,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 18.75465, y: 10.373058}
   m_EdgeRadius: 0
 --- !u!1 &8793240448016018633
 GameObject:
@@ -449,6 +449,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8040915117241977069}
   - component: {fileID: 1470773177120717577}
+  - component: {fileID: 7884822496281203425}
   m_Layer: 0
   m_Name: Walls
   m_TagString: Untagged
@@ -521,3 +522,45 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &7884822496281203425
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8793240448016018633}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 19.2, y: 10.8}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 9.42, y: -1}
+      - {x: 9.441054, y: -5.2478776}
+      - {x: -9.427476, y: -5.2404437}
+      - {x: -9.455288, y: 5.2230005}
+      - {x: -1.2798686, y: 5.2558684}
+      - {x: -1.2845967, y: 5.40346}
+      - {x: -9.599999, y: 5.4}
+      - {x: -9.599999, y: -5.4}
+      - {x: 9.599999, y: -5.4}
+      - {x: 9.599999, y: -0.97999996}
+      - {x: 9.44, y: -0.97999996}
+    - - {x: 0.63383865, y: 5.3896213}
+      - {x: 0.6372983, y: 5.2345967}
+      - {x: 9.438519, y: 5.231084}
+      - {x: 9.45033, y: 0.9242177}
+      - {x: 9.599999, y: 0.9172983}
+      - {x: 9.599999, y: 5.4}

@@ -196,6 +196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7027217810794534940}
   - component: {fileID: 6299236326930779640}
+  - component: {fileID: 8361590301247648470}
   m_Layer: 0
   m_Name: Walls
   m_TagString: Untagged
@@ -268,6 +269,49 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &8361590301247648470
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4414150149432245688}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 19.2, y: 10.8}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 9.42, y: -1}
+      - {x: 9.440156, y: -5.254328}
+      - {x: -9.434406, y: -5.2378955}
+      - {x: -9.44, y: -0.97999996}
+      - {x: -9.599999, y: -0.97999996}
+      - {x: -9.599999, y: -5.4}
+      - {x: 9.599999, y: -5.4}
+      - {x: 9.599999, y: -0.97999996}
+      - {x: 9.44, y: -0.97999996}
+    - - {x: 9.599999, y: 5.4}
+      - {x: -9.599999, y: 5.4}
+      - {x: -9.599999, y: 0.9}
+      - {x: -9.44, y: 0.9}
+      - {x: -9.42, y: 0.91999996}
+      - {x: -9.43481, y: 5.2457495}
+      - {x: 9.456418, y: 5.2341795}
+      - {x: 9.44, y: 0.9}
+      - {x: 9.599999, y: 0.9}
 --- !u!1 &5382165641628753488
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,7 +408,7 @@ GameObject:
   - component: {fileID: 8603230042661841176}
   m_Layer: 0
   m_Name: Center
-  m_TagString: Untagged
+  m_TagString: CenterRoom
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -440,7 +484,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 18.83, y: 10.442524}
   m_EdgeRadius: 0
 --- !u!1 &8932256504883637328
 GameObject:
