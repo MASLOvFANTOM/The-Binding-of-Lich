@@ -118,12 +118,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6f7f50c1cb5aa4e4dbf8b20cb6f07557, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ea336589dd9775c4d88d6b4123473c90, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -147,7 +147,7 @@ PolygonCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 19.2, y: 10.8}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 19.2, y: 10.8}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -156,19 +156,19 @@ PolygonCollider2D:
     m_Paths:
     - - {x: -9.603332, y: -1.0033305}
       - {x: -9.599999, y: -5.4}
-      - {x: -1.26, y: -5.4}
-      - {x: -1.26, y: -5.2}
-      - {x: -9.4427, y: -5.242419}
-      - {x: -9.449987, y: -1.0033305}
+      - {x: -1.2949448, y: -5.3956323}
+      - {x: -1.2774391, y: -5.0866456}
+      - {x: -9.076481, y: -5.0680285}
+      - {x: -9.109926, y: -1.0033305}
     - - {x: -9.599999, y: 5.4}
       - {x: -9.599999, y: 0.9}
       - {x: -9.44, y: 0.9}
-      - {x: -9.42, y: 0.91999996}
-      - {x: -9.4355545, y: 5.235902}
-      - {x: 9.441791, y: 5.226848}
-      - {x: 9.449567, y: -5.230957}
-      - {x: 0.64366055, y: -5.242588}
-      - {x: 0.6476946, y: -5.402356}
+      - {x: -9.123937, y: 0.90494585}
+      - {x: -9.10643, y: 4.58962}
+      - {x: 9.143499, y: 4.592981}
+      - {x: 9.106238, y: -5.080751}
+      - {x: 1.3063438, y: -5.076917}
+      - {x: 1.2842193, y: -5.411076}
       - {x: 9.599999, y: -5.4}
       - {x: 9.599999, y: 5.4}
 --- !u!1 &1427255718863922139
@@ -343,7 +343,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.14109993, y: -0.3089025}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -354,7 +354,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 18.807585, y: 10.437601}
+  m_Size: {x: 18.621948, y: 9.864548}
   m_EdgeRadius: 0
 --- !u!1 &5862345454823593796
 GameObject:

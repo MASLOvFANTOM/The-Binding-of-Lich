@@ -348,75 +348,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1001 &171534679
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2605215667121089600, guid: 8746044c90fbf824f8954acd2511458f, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2605215667121089600, guid: 8746044c90fbf824f8954acd2511458f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2605215667121089600, guid: 8746044c90fbf824f8954acd2511458f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2605215667121089600, guid: 8746044c90fbf824f8954acd2511458f, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2605215667121089600, guid: 8746044c90fbf824f8954acd2511458f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2605215667121089600, guid: 8746044c90fbf824f8954acd2511458f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2605215667121089600, guid: 8746044c90fbf824f8954acd2511458f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2605215667121089600, guid: 8746044c90fbf824f8954acd2511458f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2605215667121089600, guid: 8746044c90fbf824f8954acd2511458f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2605215667121089600, guid: 8746044c90fbf824f8954acd2511458f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2605215667121089600, guid: 8746044c90fbf824f8954acd2511458f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354907377826864569, guid: 8746044c90fbf824f8954acd2511458f, type: 3}
-      propertyPath: camera
-      value: 
-      objectReference: {fileID: 1728507026}
-    - target: {fileID: 3354907377826864569, guid: 8746044c90fbf824f8954acd2511458f, type: 3}
-      propertyPath: allHealthCell.Array.size
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354907377826864569, guid: 8746044c90fbf824f8954acd2511458f, type: 3}
-      propertyPath: allHealthCell.Array.data[18]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3678278215503562966, guid: 8746044c90fbf824f8954acd2511458f, type: 3}
-      propertyPath: m_Name
-      value: knight
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8746044c90fbf824f8954acd2511458f, type: 3}
 --- !u!1 &194184909
 GameObject:
   m_ObjectHideFlags: 0
@@ -2768,7 +2699,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.4
+  orthographic size: 5.38
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2811,6 +2742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelReload: {fileID: 551466551}
+  player: {fileID: 0}
 --- !u!1 &1733235739
 GameObject:
   m_ObjectHideFlags: 0
@@ -2996,7 +2928,7 @@ MonoBehaviour:
   maxStamina: 0
   mana: 0
   maxMana: 0
-  damage: 2
+  damage: 0
   realSpeed: 5
   boostSpeed: 5.5
   lockedSpeed: 5
@@ -3036,6 +2968,7 @@ MonoBehaviour:
   - {fileID: 7659419522265257799, guid: e8ad6f9736d8e0149a315bf1b55d92f9, type: 3}
   - {fileID: -6033755217071321212, guid: e8ad6f9736d8e0149a315bf1b55d92f9, type: 3}
   fillStaminaBar: {fileID: 16100016}
+  pointAttack: {fileID: 0}
 --- !u!4 &1748358761
 Transform:
   m_ObjectHideFlags: 0
@@ -3048,7 +2981,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1833468969
 GameObject:

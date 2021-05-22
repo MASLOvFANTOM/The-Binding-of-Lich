@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class ParentCharactrsController : MonoBehaviour
 {
@@ -10,7 +12,7 @@ public class ParentCharactrsController : MonoBehaviour
     public float maxStamina;
     public int mana;
     public int maxMana;
-    public float damage;
+    public int damage;
     public float realSpeed;
     public float boostSpeed;
     public float lockedSpeed;
@@ -20,6 +22,7 @@ public class ParentCharactrsController : MonoBehaviour
     public Image[] allManaCell = new Image[9];
     public Sprite[] parameterStage = new Sprite[3];
     public Image fillStaminaBar;
+    public Transform pointAttack;
 
     private void Awake()
     {
@@ -35,10 +38,10 @@ public class ParentCharactrsController : MonoBehaviour
     {
         float xAxis = Input.GetAxisRaw("Horizontal");
         float yAxis = Input.GetAxisRaw("Vertical");
-        // rb.position = rb.position + new Vector2(xAxis, yAxis) * (Time.deltaTime * realSpeed);
-        // rb.AddForce(new Vector2(xAxis, yAxis) * (Time.deltaTime * realSpeed) , ForceMode2D.Impulse);
-        // transform.Translate(new Vector2(xAxis, yAxis) * (Time.deltaTime * realSpeed));
-        rb.MovePosition(rb.position + new Vector2(xAxis, yAxis) * (realSpeed * Time.fixedDeltaTime));
+        Vector2 moveDirection = new Vector2(xAxis, yAxis);
+        rb.MovePosition(rb.position + moveDirection * (realSpeed * Time.fixedDeltaTime));
+        
+        // Ускорение
         if (!lockedBoost)
         {
             if (Input.GetKey(KeyCode.LeftShift) && stamina > 0)
@@ -53,14 +56,26 @@ public class ParentCharactrsController : MonoBehaviour
                 realSpeed = lockedSpeed;
             }
         }
+        
+        // Изменение положения точки атаки.
+        Vector3 currentMousePos = Input.mousePosition;
+        currentMousePos = camera.ScreenToWorldPoint(currentMousePos);
+
+        Vector2 direction = new Vector2(
+            currentMousePos.x -pointAttack.parent.transform.position.x, 
+            currentMousePos.y - pointAttack.parent.transform.position.y);
+        direction = direction * -1;
+        pointAttack.parent.transform.up = direction;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // camera move to target room
         if (other.CompareTag("CenterRoom"))
         {
             Debug.Log(other.transform.parent.transform.parent.name);
-            camera.gameObject.transform.position = new Vector3(other.transform.position.x, other.transform.position.y, -10);
+            camera.gameObject.transform.DOMoveX(other.transform.position.x, 0.9f);
+            camera.gameObject.transform.DOMoveY(other.transform.position.y, 0.9f);
         }
     }
 
@@ -106,6 +121,9 @@ public class ParentCharactrsController : MonoBehaviour
         if (stamina < maxStamina) fillStaminaBar.gameObject.transform.parent.gameObject.SetActive(true); 
         else fillStaminaBar.gameObject.transform.parent.gameObject.SetActive(false);
 
+        // Ограничение параметров
+        maxMana = Mathf.Clamp(maxMana, 0, 9);
+        maxHealth = Mathf.Clamp(maxHealth, 0, 20);
         health = Mathf.Clamp(health, 0, maxHealth);
         mana = Mathf.Clamp(mana, 0, maxMana);
         stamina = Mathf.Clamp(stamina, 0, maxStamina);

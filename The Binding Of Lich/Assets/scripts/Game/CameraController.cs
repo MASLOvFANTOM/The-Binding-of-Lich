@@ -8,9 +8,9 @@ public class CameraController : MonoBehaviour
     private float reloading;
     private bool canReloding;
     public Animator LevelReload;
-    private GameObject player;
+    public GameObject player;
 
-    private void Start()
+    private void Awake()
     {
         templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplate>();
         player = GameObject.FindGameObjectWithTag("Player");
@@ -42,6 +42,7 @@ public class CameraController : MonoBehaviour
             {
                 if (timeReload <= 0)
                 {
+                    player = GameObject.FindGameObjectWithTag("Player");
                     player.transform.position = Vector3.zero;
                     LevelReload.SetTrigger("Start");
                     canReloding = true;

@@ -8,6 +8,7 @@ TagManager:
   - Rooms
   - CenterRoom
   - NeedToCharacter
+  - canAttacked
   layers:
   - Default
   - TransparentFX

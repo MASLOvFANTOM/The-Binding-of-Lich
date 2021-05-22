@@ -159,7 +159,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -183,7 +183,7 @@ PolygonCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 19.2, y: 10.8}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 19.2, y: 10.8}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -192,12 +192,12 @@ PolygonCollider2D:
     m_Paths:
     - - {x: -9.599999, y: 5.4}
       - {x: -9.599999, y: 0.9}
-      - {x: -9.44, y: 0.9}
-      - {x: -9.435181, y: 5.233589}
-      - {x: 9.439812, y: 5.241417}
-      - {x: 9.433174, y: -5.2212477}
-      - {x: -9.441155, y: -5.2530165}
-      - {x: -9.43952, y: -1.0043554}
+      - {x: -9.106992, y: 0.8895935}
+      - {x: -9.112579, y: 4.6196055}
+      - {x: 9.106803, y: 4.617027}
+      - {x: 9.14203, y: -5.060617}
+      - {x: -9.089774, y: -5.062267}
+      - {x: -9.098179, y: -0.98427653}
       - {x: -9.595901, y: -1.0046239}
       - {x: -9.599999, y: -5.4}
       - {x: 9.599999, y: -5.4}
@@ -406,7 +406,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.012238026, y: 0.018678665}
+  m_Offset: {x: -0.16196775, y: -0.23989677}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -417,7 +417,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 18.874012, y: 10.376774}
+  m_Size: {x: 18.575985, y: 9.665691}
   m_EdgeRadius: 0
 --- !u!1 &8036247639680856042
 GameObject:

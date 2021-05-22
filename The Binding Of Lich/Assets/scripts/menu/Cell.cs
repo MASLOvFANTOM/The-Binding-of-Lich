@@ -117,6 +117,6 @@ public class Cell : MonoBehaviour
 public class PlayerDataOpenCell
 {
     public List<string> listOpenedCharacter = new List<string>{"knight"};
-    public List<object> Knight = new List<object>() {3, 1, "ЭТО ГЕРОЙ ВСЕМ ГЕРОЙМ ГЕРОЙ. ВЗМАХ МЕЧА ЕГО РУБИТ КАМНИ, А ТОПОТ ЕГО ГЛУШИТ ВРАГОВ." };
-    public List<object> Wizard = new List<object>() {2, 1, "THIS IS WIZARD. Он очень хлипок, но силён умом!" };
+    public List<object> Knight = new List<object>() {3, 1, "ЭТО ГЕРОЙ ВСЕМ ГЕРОЙМ ГЕРОЙ. ВЗМАХ МЕЧА ЕГО РУБИТ КАМНИ, А ТОПОТ ЕГО ГЛУШИТ ВРАГОВ."};
+    public List<object> Wizard = new List<object>() {2, 1, "THIS IS WIZARD. Он очень хлипок, но силён умом!"};
 }
