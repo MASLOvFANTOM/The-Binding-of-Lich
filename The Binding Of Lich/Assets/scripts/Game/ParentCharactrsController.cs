@@ -1,28 +1,24 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
 public class ParentCharactrsController : MonoBehaviour
 {
-    public int health;
-    public int maxHealth;
-    public float stamina;
-    public float maxStamina;
-    public int mana;
-    public int maxMana;
+    public int health, maxHealth;
+    public float stamina, maxStamina;
+    public int mana, maxMana;
     public int damage;
-    public float realSpeed;
-    public float boostSpeed;
-    public float lockedSpeed;
-    public bool lockedBoost;
+    public float realSpeed, boostSpeed, lockedSpeed;
+    public bool lockedBoost, lockedMove;
     public Camera camera;
     public Image[] allHealthCell = new Image[18];
     public Image[] allManaCell = new Image[9];
     public Sprite[] parameterStage = new Sprite[3];
     public Image fillStaminaBar;
     public Transform pointAttack;
+    public Animator _animator;
+    public SpriteRenderer _SpriteRenderer;
+    public Animator ParticleSystemAnimator;
 
     private void Awake()
     {
@@ -32,14 +28,40 @@ public class ParentCharactrsController : MonoBehaviour
         parameterStage = charactrsController.parameterStage;
         fillStaminaBar = charactrsController.fillStaminaBar;
         camera = charactrsController.camera;
+        _animator = GetComponent<Animator>();
     }
 
     public void Move(Rigidbody2D rb)
     {
+        // Движение
         float xAxis = Input.GetAxisRaw("Horizontal");
         float yAxis = Input.GetAxisRaw("Vertical");
-        Vector2 moveDirection = new Vector2(xAxis, yAxis);
+        Vector2 moveDirection = Vector2.zero;
+        if (!lockedMove) moveDirection = new Vector2(xAxis, yAxis);
         rb.MovePosition(rb.position + moveDirection * (realSpeed * Time.fixedDeltaTime));
+
+        if (xAxis > 0)
+        {
+            _SpriteRenderer.flipX = false;
+            ParticleSystemAnimator.transform.rotation = Quaternion.Euler(-90, -180, 0);
+        }
+        else if (xAxis < 0)
+        {
+            _SpriteRenderer.flipX = true;
+            ParticleSystemAnimator.transform.rotation = Quaternion.Euler(-90, 0, 0);
+        }
+
+        // Анимация Движения
+        if (xAxis != 0 || yAxis != 0)
+        {
+            _animator.SetBool("Run", true);
+            ParticleSystemAnimator.SetTrigger("Off");
+        }
+        else
+        {
+            _animator.SetBool("Run", false);
+            ParticleSystemAnimator.SetTrigger("On");
+        }
         
         // Ускорение
         if (!lockedBoost)
@@ -60,6 +82,7 @@ public class ParentCharactrsController : MonoBehaviour
         // Изменение положения точки атаки.
         Vector3 currentMousePos = Input.mousePosition;
         currentMousePos = camera.ScreenToWorldPoint(currentMousePos);
+        // print(camera.ScreenToViewportPoint(Input.mousePosition));
 
         Vector2 direction = new Vector2(
             currentMousePos.x -pointAttack.parent.transform.position.x, 

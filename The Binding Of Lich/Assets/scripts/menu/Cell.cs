@@ -76,6 +76,7 @@ public class Cell : MonoBehaviour
     public void MouseDown()
     {
         StartCoroutine(MouseDownCoorotine());
+
     }
 
     IEnumerator MouseDownCoorotine()

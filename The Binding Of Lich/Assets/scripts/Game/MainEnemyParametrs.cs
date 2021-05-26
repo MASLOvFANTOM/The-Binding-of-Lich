@@ -26,10 +26,13 @@ public class MainEnemyParametrs : MonoBehaviour
             Destroy(GetComponent<BoxCollider2D>());
             
             // Dropping
-            int random = Random.Range(0, 101);
-            if (random >= chanceDrop[0] && random <= chanceDrop[1])
+            if (drop)
             {
-                // Drop
+                int random = Random.Range(0, 101);
+                if (random >= chanceDrop[0] && random <= chanceDrop[1])
+                {
+                    Instantiate(drop, transform.position, Quaternion.identity);
+                }
             }
         }
     }
