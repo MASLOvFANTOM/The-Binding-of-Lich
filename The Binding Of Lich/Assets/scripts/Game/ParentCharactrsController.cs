@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -14,15 +15,18 @@ public class ParentCharactrsController : MonoBehaviour
     public Image[] allHealthCell = new Image[18];
     public Image[] allManaCell = new Image[9];
     public Sprite[] parameterStage = new Sprite[3];
+    public Transform[] allObjectForFlip;
     public Image fillStaminaBar;
     public Transform pointAttack;
     public Animator _animator;
+    public Animation getDamageAnimation;
     public SpriteRenderer _SpriteRenderer;
     public Animator ParticleSystemAnimator;
 
     private void Awake()
     {
-        ParentCharactrsController charactrsController = GameObject.FindGameObjectWithTag("NeedToCharacter").GetComponent<ParentCharactrsController>();
+        ParentCharactrsController charactrsController = GameObject.FindGameObjectWithTag("NeedToCharacter")
+            .GetComponent<ParentCharactrsController>();
         allHealthCell = charactrsController.allHealthCell;
         allManaCell = charactrsController.allManaCell;
         parameterStage = charactrsController.parameterStage;
@@ -31,7 +35,7 @@ public class ParentCharactrsController : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    public void Move(Rigidbody2D rb)
+    public void Move(Rigidbody2D rb) // Движение персонажа
     {
         // Движение
         float xAxis = Input.GetAxisRaw("Horizontal");
@@ -39,31 +43,41 @@ public class ParentCharactrsController : MonoBehaviour
         Vector2 moveDirection = Vector2.zero;
         if (!lockedMove) moveDirection = new Vector2(xAxis, yAxis);
         rb.MovePosition(rb.position + moveDirection * (realSpeed * Time.fixedDeltaTime));
-
-        if (xAxis > 0)
-        {
-            _SpriteRenderer.flipX = false;
-            ParticleSystemAnimator.transform.rotation = Quaternion.Euler(-90, -180, 0);
-        }
-        else if (xAxis < 0)
-        {
-            _SpriteRenderer.flipX = true;
-            ParticleSystemAnimator.transform.rotation = Quaternion.Euler(-90, 0, 0);
-        }
-
-        // Анимация Движения
-        if (xAxis != 0 || yAxis != 0)
-        {
-            _animator.SetBool("Run", true);
-            ParticleSystemAnimator.SetTrigger("Off");
-        }
-        else
-        {
-            _animator.SetBool("Run", false);
-            ParticleSystemAnimator.SetTrigger("On");
-        }
         
-        // Ускорение
+        
+        Boost(xAxis, yAxis);
+        _animator.SetFloat("run", Mathf.Abs(xAxis) + Mathf.Abs(yAxis)); // включение анимации бега
+        ParticleSystemAnimator.SetFloat("run", Mathf.Abs(xAxis) + Mathf.Abs(yAxis)); // включение анимации у частиц
+    }
+
+    public void FlipGraphics(int xDirection) // Переворот всех объектов которые надо перевернуть
+    {
+
+        print(xDirection);
+        xDirection = Mathf.Clamp(xDirection, -1, 0);
+        xDirection = xDirection * -180;
+        print(xDirection);
+        for (int i = 0; i < allObjectForFlip.Length; i++)
+        {
+            allObjectForFlip[i].rotation = Quaternion.Euler(0, xDirection, 0);
+        }
+        ParticleSystemAnimator.transform.rotation = Quaternion.Euler(-90, xDirection * -1, 0);
+    }
+
+    public void ChangePosPointAttack() // Изменение положения точки атаки.
+    {
+        Vector3 currentMousePos = camera.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector2 direction = new Vector2(
+            currentMousePos.x - pointAttack.parent.transform.position.x,
+            currentMousePos.y - pointAttack.parent.transform.position.y);
+        direction = direction * -1;
+        FlipGraphics(Convert.ToInt16(direction.x));
+        pointAttack.parent.transform.up = direction;
+    }
+
+    public void Boost(float xAxis, float yAxis) // Ускорение движения
+    {
         if (!lockedBoost)
         {
             if (Input.GetKey(KeyCode.LeftShift) && stamina > 0)
@@ -73,22 +87,17 @@ public class ParentCharactrsController : MonoBehaviour
             }
             else
             {
-                if(xAxis == 0 && yAxis == 0) stamina += (700 / maxStamina) * Time.deltaTime;
+                if (xAxis == 0 && yAxis == 0) stamina += (700 / maxStamina) * Time.deltaTime;
                 else stamina += (400 / maxStamina) * Time.deltaTime;
                 realSpeed = lockedSpeed;
             }
         }
-        
-        // Изменение положения точки атаки.
-        Vector3 currentMousePos = Input.mousePosition;
-        currentMousePos = camera.ScreenToWorldPoint(currentMousePos);
-        // print(camera.ScreenToViewportPoint(Input.mousePosition));
+    }
 
-        Vector2 direction = new Vector2(
-            currentMousePos.x -pointAttack.parent.transform.position.x, 
-            currentMousePos.y - pointAttack.parent.transform.position.y);
-        direction = direction * -1;
-        pointAttack.parent.transform.up = direction;
+    public void GetDamage(int damage) // Когда получил урон
+    {
+        health -= damage;
+        getDamageAnimation.Play();
     }
 
     private void OnTriggerEnter2D(Collider2D other)

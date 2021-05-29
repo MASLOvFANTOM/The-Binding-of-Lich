@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Diagnostics.Contracts;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class KnightController : ParentCharactrsController
     public float attackRange;
     private bool canAttack = true;
     public float attackCoolDown;
+    public bool shieldUp;
     
 
     private void Start()
@@ -19,26 +21,22 @@ public class KnightController : ParentCharactrsController
     {
         Move(rb);
         ManaAndHealthControl();
-        if (canAttack)
+        ChangePosPointAttack();
+        ShieldUpDown();
+        if (canAttack && Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                Attack();
-            }
+            Attack();
         }
+        print(Convert.ToInt16(false));
     }
     
 
     private void Attack()
     {
         StartCoroutine(AttackCoolDown()); // CoolDown
-        // rotate to mouse
-        if (pointAttack.parent.transform.rotation.z < 0.99 && pointAttack.parent.transform.rotation.z > 0)
-            _SpriteRenderer.flipX = false;
-        else _SpriteRenderer.flipX = true;
-        
+
         // Animation & attack processing;
-        _animator.SetTrigger("Attack");
+        _animator.SetTrigger("attack");
         Collider2D[] allAttackedObjects = Physics2D.OverlapCircleAll(pointAttack.position, attackRange);
         for (int i = 0; i < allAttackedObjects.Length; i++)
         {
@@ -47,6 +45,13 @@ public class KnightController : ParentCharactrsController
                 allAttackedObjects[i].gameObject.GetComponent<MainEnemyParametrs>().health -= damage;
             }
         }
+    }
+
+    public void ShieldUpDown()
+    {
+        bool mouseDown = Input.GetMouseButton(1);
+        _animator.SetBool("shieldUp", mouseDown);
+        realSpeed = lockedSpeed / (Convert.ToInt16(mouseDown) + 1);
     }
 
     IEnumerator AttackCoolDown()

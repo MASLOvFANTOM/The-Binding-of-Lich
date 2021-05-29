@@ -1,16 +1,15 @@
-using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class MainEnemyParametrs : MonoBehaviour
 {
-    public int health;
-    public GameObject drop;
-    public int[] chanceDrop = new int[2];
-    private Animator _animator;
-    private bool firstDead;
-    public string deadTag;
-
+    public int health; // Жизни
+    public int[] chanceDrop = new int[2]; // От x - до y % Шанс дропа предмета
+    public bool firstDead; // Для того, что-бы нельзя было умереть ещё раз (показатель смерти)
+    public string deadAnimationTriggerTag; // Имя триггера анимации смерти
+    public GameObject drop; // Предмет дропа.
+    private Animator _animator; // Аниматор
+    
     private void Start()
     {
         _animator = GetComponent<Animator>();
@@ -21,19 +20,24 @@ public class MainEnemyParametrs : MonoBehaviour
         // Dead
         if (health <= 0 && !firstDead)
         {
-            firstDead = true;
-            _animator.SetTrigger(deadTag);
-            Destroy(GetComponent<BoxCollider2D>());
-            
-            // Dropping
-            if (drop)
-            {
-                int random = Random.Range(0, 101);
-                if (random >= chanceDrop[0] && random <= chanceDrop[1])
-                {
-                    Instantiate(drop, transform.position, Quaternion.identity);
-                }
-            }
+            Dead();
+            DropItem(drop);
+        }
+    }
+
+    public void Dead() // Объект уничтожен
+    {
+        firstDead = true;
+        _animator.SetTrigger(deadAnimationTriggerTag);
+        if(GetComponent<BoxCollider2D>()) Destroy(GetComponent<BoxCollider2D>()); //Optimization
+    }
+
+    public void DropItem(GameObject item) // Выбросить указанный объект
+    {
+        int random = Random.Range(0, 101);
+        if (random >= chanceDrop[0] && random <= chanceDrop[1])
+        { 
+            Instantiate(item, transform.position, Quaternion.identity);
         }
     }
 }
