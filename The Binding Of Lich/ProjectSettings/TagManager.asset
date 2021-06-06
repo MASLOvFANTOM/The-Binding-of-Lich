@@ -10,6 +10,8 @@ TagManager:
   - NeedToCharacter
   - canAttacked
   - PlayerCollision
+  - obstacle
+  - minimap camera
   layers:
   - Default
   - TransparentFX
@@ -20,9 +22,9 @@ TagManager:
   - player Collision
   - obstacle
   - enemy
-  - 
-  - 
-  - 
+  - enemy Collision
+  - room
+  - mini map view
   - 
   - 
   - 

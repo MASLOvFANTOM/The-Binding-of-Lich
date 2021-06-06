@@ -1,16 +1,17 @@
 using System;
 using System.Collections;
-using System.Diagnostics.Contracts;
 using UnityEngine;
+using DG.Tweening;
+using Random = UnityEngine.Random;
 
 public class KnightController : ParentCharactrsController
 {
+    [Header("For KnightController")]
     private Rigidbody2D rb;
     public float attackRange;
     private bool canAttack = true;
     public float attackCoolDown;
     public bool shieldUp;
-    
 
     private void Start()
     {
@@ -23,14 +24,33 @@ public class KnightController : ParentCharactrsController
         ManaAndHealthControl();
         ChangePosPointAttack();
         ShieldUpDown();
-        if (canAttack && Input.GetMouseButtonDown(0))
+        if (canAttack && Input.GetMouseButtonDown(0) && !shieldUp)
         {
             Attack();
         }
-        print(Convert.ToInt16(false));
     }
-    
 
+    public override void GetDamage(int monsterDamage)
+    {
+        if (!invulnerable)
+        {
+            if (shieldUp && stamina > monsterDamage * 20) stamina -= monsterDamage * 20;
+            else health -= monsterDamage;
+            getDamageAnimation.Play("GetDamage");
+            camera.GetComponent<CameraController>().CameraShake();
+            StartCoroutine(InvulnerableTimer());
+        }
+    }
+
+    public void CameraGetDamage(int range)
+    {
+        for (int i = 0; i < range; i++)
+        {
+            float rand = Random.Range(-0.5f, 0.5f);
+            Vector3 newPos = new Vector3(camera.transform.position.x + rand, camera.transform.position.y + rand, -10);
+            camera.transform.DOMove(newPos, 0.01f);
+        }
+    }
     private void Attack()
     {
         StartCoroutine(AttackCoolDown()); // CoolDown
@@ -42,7 +62,7 @@ public class KnightController : ParentCharactrsController
         {
             if (allAttackedObjects[i].gameObject.CompareTag("canAttacked"))
             {
-                allAttackedObjects[i].gameObject.GetComponent<MainEnemyParametrs>().health -= damage;
+                allAttackedObjects[i].gameObject.GetComponent<MainEnemyParametrs>().GetDamage(damage);
             }
         }
     }
@@ -52,6 +72,7 @@ public class KnightController : ParentCharactrsController
         bool mouseDown = Input.GetMouseButton(1);
         _animator.SetBool("shieldUp", mouseDown);
         realSpeed = lockedSpeed / (Convert.ToInt16(mouseDown) + 1);
+        shieldUp = mouseDown;
     }
 
     IEnumerator AttackCoolDown()

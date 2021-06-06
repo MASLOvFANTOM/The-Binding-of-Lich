@@ -1,21 +1,32 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
 public class ParentCharactrsController : MonoBehaviour
 {
-    public int health, maxHealth;
+    [Header("Параметры игрока")]
+    public int health;
+    public int maxHealth;
     public float stamina, maxStamina;
     public int mana, maxMana;
     public int damage;
-    public float realSpeed, boostSpeed, lockedSpeed;
-    public bool lockedBoost, lockedMove;
+    [Tooltip("Скорость")]public float realSpeed, boostSpeed, lockedSpeed;
+    [Tooltip("Блокирование действий")]public bool lockedBoost, lockedMove;
+    [Tooltip("Бессмертие")]public bool invulnerable;
+    [Tooltip("Перемещение из комнаты в комнату")]public bool moveRoom;
+    
+    [Space]
     public Camera camera;
+    
+    [Header("Списки")]
     public Image[] allHealthCell = new Image[18];
     public Image[] allManaCell = new Image[9];
     public Sprite[] parameterStage = new Sprite[3];
     public Transform[] allObjectForFlip;
+    
+    [Header("Другое")]
     public Image fillStaminaBar;
     public Transform pointAttack;
     public Animator _animator;
@@ -52,11 +63,9 @@ public class ParentCharactrsController : MonoBehaviour
 
     public void FlipGraphics(int xDirection) // Переворот всех объектов которые надо перевернуть
     {
-
-        print(xDirection);
+        
         xDirection = Mathf.Clamp(xDirection, -1, 0);
         xDirection = xDirection * -180;
-        print(xDirection);
         for (int i = 0; i < allObjectForFlip.Length; i++)
         {
             allObjectForFlip[i].rotation = Quaternion.Euler(0, xDirection, 0);
@@ -94,24 +103,28 @@ public class ParentCharactrsController : MonoBehaviour
         }
     }
 
-    public void GetDamage(int damage) // Когда получил урон
+    public virtual void GetDamage(int damage) // Когда получил урон
     {
         health -= damage;
-        getDamageAnimation.Play();
+        getDamageAnimation.Play("GetDamage");
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public IEnumerator InvulnerableTimer()
     {
-        // camera move to target room
-        if (other.CompareTag("CenterRoom"))
-        {
-            Debug.Log(other.transform.parent.transform.parent.name);
-            camera.gameObject.transform.DOMoveX(other.transform.position.x, 0.9f);
-            camera.gameObject.transform.DOMoveY(other.transform.position.y, 0.9f);
-        }
+        invulnerable = true;
+        yield return new WaitForSeconds(0.7f);
+        invulnerable = false;
+        StopCoroutine(InvulnerableTimer());
     }
 
-    public void ManaAndHealthControl()
+    public IEnumerator MoveRoomTimer()
+    {
+        moveRoom = true;
+        yield return new WaitForSeconds(1f);
+        moveRoom = false;
+    }
+
+    public void ManaAndHealthControl() // настройка маны и жизней
     {
         // Настройка жизней
         for (int i = 0; i < allHealthCell.Length; i++)

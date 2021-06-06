@@ -20,12 +20,13 @@ public class RoomSpawner : MonoBehaviour
     {
         Destroy(gameObject, waitTime);
         templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplate>();
-        Invoke("Spawn", 0.1f);
+        Invoke("SpawnRoom", 0.2f);
         //Instantiate(templates.closedRoom, transform.position, quaternion.identity);
     }
 
-    private void Spawn()
-    { if (spawned == false)
+    private void SpawnRoom()
+    { 
+        if (spawned == false)
         {
             if (openingDirection == 1)
             {
@@ -58,42 +59,19 @@ public class RoomSpawner : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (timeSleep > 3)
+        if (other.CompareTag("CenterRoom"))
         {
-            if (other.CompareTag("SpawnPoint"))
+            print("Center room check");
+            Destroy(gameObject);
+        }
+        
+        else if (other.CompareTag("SpawnPoint"))
+        {
+            if (other.GetComponent<RoomSpawner>().spawned == false && spawned == false)
             {
-                 if (other.GetComponent<RoomSpawner>().spawned == false && spawned == false)
-                 {
-                     Instantiate(templates.closedRoom, transform.position, quaternion.identity);
-                     Destroy(gameObject);
-                 }
-                
-                // if(other.GetComponent<RoomSpawner>().spawned) Destroy(gameObject);
-                //
-                // int otherDirection = other.GetComponent<RoomSpawner>().openingDirection;
-                // switch (openingDirection)
-                // {
-                //     case 1:
-                //         Instantiate(templates.bottomRooms[otherDirection], transform.position, Quaternion.identity);
-                //         print(templates.bottomRooms[otherDirection]);
-                //         break;
-                //     case 2:
-                //         Instantiate(templates.topRooms[otherDirection], transform.position, Quaternion.identity);
-                //         print(templates.topRooms[otherDirection]);
-                //         break;
-                //     case 3:
-                //         Instantiate(templates.rightRooms[otherDirection], transform.position, Quaternion.identity);
-                //         print(templates.rightRooms[otherDirection]);
-                //         break;
-                //     case 4:
-                //         Instantiate(templates.leftRooms[otherDirection], transform.position, Quaternion.identity);
-                //         print(templates.leftRooms[otherDirection]);
-                //         break;
-                // }
-                // Destroy(gameObject);
-                // spawned = true;
+                Instantiate(templates.closedRoom, transform.position, quaternion.identity);
+                Destroy(gameObject);
             }
         }
-        else timeSleep++;
     }
 }

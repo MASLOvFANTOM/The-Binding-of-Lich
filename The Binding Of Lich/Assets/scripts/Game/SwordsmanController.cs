@@ -1,47 +1,44 @@
+using System;
 using System.Collections;
+using System.Security.Cryptography;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class SwordsmanController : MainEnemyParametrs
 {
-    private PolygonCollider2D damageCollider;
-    public int damage = 1;
-    public float coolDown = 1f;
-    public bool canAttack = true;
-
+    public ParticleSystem bloodParticle;
+    public EnemyFollow _enemyFollow;
+    public AttackZone _attackZone;
+    public Animator _animator;
 
     private void Start()
     {
-        damageCollider = GetComponent<PolygonCollider2D>();
+        _enemyFollow = GetComponent<EnemyFollow>();
+        _attackZone = GetComponentInChildren<AttackZone>();
+        _animator = GetComponent<Animator>();
     }
 
-    private void FixedUpdate()
+    public override IEnumerator Dead()
     {
-        if (firstDead) // Dead
-        {
-        }
+        _animator.SetTrigger("dead");
+        myRoom.monstersInRoom.Remove(this.gameObject);
+        firstDead = true;
+        _enemyFollow.speed = 0;
+        _attackZone.canAttack = false;
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    public override void GetDamage(int damage)
     {
-        // Нанесение урона
-        if (!firstDead)
-        {
-            if (other.gameObject.CompareTag("PlayerCollision"))
-            {
-                if (canAttack)
-                {
-                    other.transform.parent.gameObject.GetComponent<ParentCharactrsController>().health -= damage;
-                    canAttack = false;
-                    StartCoroutine(CoolDownTimer());
-                }
-            }
-        }
+        base.GetDamage(damage);
+        StartCoroutine(BloodParticleStart());
     }
-
-    IEnumerator CoolDownTimer()
+    
+    public IEnumerator BloodParticleStart()
     {
-        yield return new WaitForSeconds(coolDown);
-        canAttack = true;
-        StopCoroutine(CoolDownTimer());
+        bloodParticle.Play();
+        yield return new WaitForSeconds(1f);
+        bloodParticle.Stop();
     }
 }
