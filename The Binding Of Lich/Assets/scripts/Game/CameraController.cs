@@ -8,9 +8,11 @@ using DG.Tweening;
 
 public class CameraController : MonoBehaviour
 {
-    private RoomTemplate templates;
+    [Header("Основа")]
     public GameObject player;
-    public Animator cameraEmpty;
+    public GameObject cameraEmpty;
+    public Animator cameraAnimator;
+    
     [Header("Миникарта")] 
     public Animator miniMapAnimator;
     public Animator miniMapCamera;
@@ -24,7 +26,6 @@ public class CameraController : MonoBehaviour
 
     private void SerializeParametrs()
     {
-        templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplate>();
         player = GameObject.FindGameObjectWithTag("Player");
         miniMapCamera = GameObject.FindGameObjectWithTag("minimap camera").GetComponent<Animator>();
     }
@@ -46,13 +47,13 @@ public class CameraController : MonoBehaviour
 
     public void CameraShake()
     {
-        cameraEmpty.SetTrigger("Shake");
+        cameraAnimator.SetTrigger("shake");
     }
 
     private void Move() // Движение за игроком
     {
-        Vector3 newPos = new Vector3(player.transform.position.x, player.transform.position.y, -10);
-        transform.DOMove(newPos, 0.4f);
+        Vector3 newPos = new Vector3(player.transform.position.x, player.transform.position.y, 0);
+        cameraEmpty.transform.DOMove(newPos, 0.4f);
     }
 
     public void LevelRestart() // Рестарт уровня

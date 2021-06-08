@@ -3,14 +3,15 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEditor;
 
 public class ParentCharactrsController : MonoBehaviour
 {
     [Header("Параметры игрока")]
-    [Range(0, 20)]public int health;
-    [Range(0, 20)]public int maxHealth;
+    public float health;
+    public float maxHealth;
     public float stamina, maxStamina;
-    [Range(0, 10)]public int mana, maxMana;
+    public int mana, maxMana;
     public int damage;
     [Tooltip("Скорость")]public float realSpeed, boostSpeed, lockedSpeed;
     [Tooltip("Блокирование действий")]public bool lockedBoost, lockedMove;
@@ -21,13 +22,11 @@ public class ParentCharactrsController : MonoBehaviour
     public Camera camera;
     
     [Header("Списки")]
-    public Image[] allHealthCell = new Image[18];
-    public Image[] allManaCell = new Image[9];
-    public Sprite[] parameterStage = new Sprite[3];
     public Transform[] allObjectForFlip;
-    
+
     [Header("Другое")]
-    public Image fillStaminaBar;
+    public Image fillStaminaBar, fillHealthBar, fillManaBar;
+    public Text healthAmountText, manaAmountText;
     public Transform pointAttack;
     public Animator _animator;
     public Animation getDamageAnimation;
@@ -38,12 +37,13 @@ public class ParentCharactrsController : MonoBehaviour
     {
         ParentCharactrsController charactrsController = GameObject.FindGameObjectWithTag("NeedToCharacter")
             .GetComponent<ParentCharactrsController>();
-        allHealthCell = charactrsController.allHealthCell;
-        allManaCell = charactrsController.allManaCell;
-        parameterStage = charactrsController.parameterStage;
         fillStaminaBar = charactrsController.fillStaminaBar;
+        fillHealthBar = charactrsController.fillHealthBar;
+        fillManaBar = charactrsController.fillManaBar;
         camera = charactrsController.camera;
         _animator = GetComponent<Animator>();
+        healthAmountText = charactrsController.healthAmountText;
+        manaAmountText = charactrsController.manaAmountText;
     }
 
     public void Move(Rigidbody2D rb) // Движение персонажа
@@ -139,43 +139,12 @@ public class ParentCharactrsController : MonoBehaviour
 
     public void ManaAndHealthControl() // настройка маны и жизней
     {
-        // Настройка жизней
-        for (int i = 0; i < allHealthCell.Length; i++)
-        {
-            if (i < health)
-            {
-                allHealthCell[i].sprite = parameterStage[0];
-                allHealthCell[i].gameObject.SetActive(true);
-            }
-            else if(i > health && i <= maxHealth)
-            {
-                allHealthCell[i].sprite = parameterStage[2];
-                allHealthCell[i].gameObject.SetActive(true);
-            }
-            else
-            {
-                allHealthCell[i].gameObject.SetActive(false);
-            }
-        }
+        fillHealthBar.fillAmount = health / maxHealth;
+        fillManaBar.fillAmount = mana / maxMana;
         
-        // Настройка маны
-        for (int i = 0; i < allManaCell.Length; i++)
-        {
-            if (i < mana)
-            {
-                allManaCell[i].sprite = parameterStage[1];
-                allManaCell[i].gameObject.SetActive(true);
-            }
-            else if(i > mana && i <= maxMana)
-            {
-                allManaCell[i].sprite = parameterStage[2];
-                allManaCell[i].gameObject.SetActive(true);
-            }
-            else
-            {
-                allManaCell[i].gameObject.SetActive(false);
-            }
-        }
+        healthAmountText.text = health.ToString();
+        manaAmountText.text = mana.ToString();
+
         if (stamina < maxStamina) fillStaminaBar.gameObject.transform.parent.gameObject.SetActive(true); 
         else fillStaminaBar.gameObject.transform.parent.gameObject.SetActive(false);
 
