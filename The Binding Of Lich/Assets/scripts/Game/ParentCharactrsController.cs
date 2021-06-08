@@ -7,10 +7,10 @@ using DG.Tweening;
 public class ParentCharactrsController : MonoBehaviour
 {
     [Header("Параметры игрока")]
-    public int health;
-    public int maxHealth;
+    [Range(0, 20)]public int health;
+    [Range(0, 20)]public int maxHealth;
     public float stamina, maxStamina;
-    public int mana, maxMana;
+    [Range(0, 10)]public int mana, maxMana;
     public int damage;
     [Tooltip("Скорость")]public float realSpeed, boostSpeed, lockedSpeed;
     [Tooltip("Блокирование действий")]public bool lockedBoost, lockedMove;
@@ -109,7 +109,7 @@ public class ParentCharactrsController : MonoBehaviour
         getDamageAnimation.Play("GetDamage");
     }
 
-    public IEnumerator InvulnerableTimer()
+    public IEnumerator InvulnerableTimer() // Таймер на бессмертие
     {
         invulnerable = true;
         yield return new WaitForSeconds(0.7f);
@@ -117,12 +117,25 @@ public class ParentCharactrsController : MonoBehaviour
         StopCoroutine(InvulnerableTimer());
     }
 
-    public IEnumerator MoveRoomTimer()
+    public IEnumerator MoveRoomTimer() // Таймер на передвижение между комнатами
     {
         moveRoom = true;
         yield return new WaitForSeconds(1f);
         moveRoom = false;
     }
+
+    #region Effects
+    public IEnumerator FireEffect(int time)
+    {
+        for (int i = 0; i < time; i++)
+        {
+            GetDamage(1);
+            yield return new WaitForSeconds(1f);
+        }
+    }
+    
+    #endregion
+    
 
     public void ManaAndHealthControl() // настройка маны и жизней
     {
@@ -167,8 +180,6 @@ public class ParentCharactrsController : MonoBehaviour
         else fillStaminaBar.gameObject.transform.parent.gameObject.SetActive(false);
 
         // Ограничение параметров
-        maxMana = Mathf.Clamp(maxMana, 0, 9);
-        maxHealth = Mathf.Clamp(maxHealth, 0, 20);
         health = Mathf.Clamp(health, 0, maxHealth);
         mana = Mathf.Clamp(mana, 0, maxMana);
         stamina = Mathf.Clamp(stamina, 0, maxStamina);
