@@ -30,14 +30,17 @@ SpriteAtlas:
       enableTightPacking: 0
     secondaryTextureSettings: {}
     variantMultiplier: 1
-    packables: []
-    totalSpriteSurfaceArea: 0
+    packables:
+    - {fileID: 2800000, guid: d61dc809a7dd14148bcac9b5cab178e2, type: 3}
+    totalSpriteSurfaceArea: 1441792
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites: []
-  m_PackedSpriteNamesToIndex: []
+  m_PackedSprites:
+  - {fileID: 21300000, guid: d61dc809a7dd14148bcac9b5cab178e2, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - all room sprite more big
   m_RenderDataMap: {}
   m_Tag: rooms
   m_IsVariant: 0

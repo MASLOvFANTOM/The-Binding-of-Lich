@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PowderDamage : MonoBehaviour
 {
-    [Range(0, 3)]public int damage;
+    [Range(0, 40)]public int damage;
     [Tooltip("Время горения")]
     [Range(1, 10)]public int burningTime;
     private void OnTriggerEnter2D(Collider2D other)
@@ -10,7 +10,7 @@ public class PowderDamage : MonoBehaviour
         if (other.CompareTag("PlayerCollision"))
         {
             ParentCharactrsController _charactrsController = other.GetComponentInParent<ParentCharactrsController>();
-            _charactrsController.GetDamage(damage);
+            _charactrsController.GetDamage(damage, false);
             _charactrsController.StartCoroutine(_charactrsController.FireEffect(burningTime));
         }
 

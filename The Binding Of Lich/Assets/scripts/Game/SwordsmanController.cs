@@ -37,8 +37,8 @@ public class SwordsmanController : MainEnemyParametrs
     
     public IEnumerator BloodParticleStart()
     {
-        bloodParticle.Play();
+        Vector3 spawnPos = new Vector3(transform.position.x, transform.position.y, 1.4f);
+        Instantiate(bloodParticle, transform.position, Quaternion.identity);
         yield return new WaitForSeconds(1f);
-        bloodParticle.Stop();
     }
 }

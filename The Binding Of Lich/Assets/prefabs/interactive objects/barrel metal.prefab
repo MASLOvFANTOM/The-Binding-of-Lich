@@ -127,7 +127,8 @@ MonoBehaviour:
   myRoom: {fileID: 0}
   deadSprite: {fileID: 21300000, guid: eb2a5342bb35fa2428502682cdc98bcc, type: 3}
   _SpriteRenderer: {fileID: 3131259359651903243}
-  deadParticle: {fileID: 7335243768362301966, guid: 7012196d7e8144a42bbe64ea8ff63062, type: 3}
+  deadParticle: {fileID: 7335243768362301966, guid: 35415330f285df04fb227452ec73766b, type: 3}
+  breakParticle: {fileID: 7975718357651271190, guid: ae97e27d42d3e704cb6d302fa5adbcb3, type: 3}
   forDead:
   - {fileID: 3131259359651903241}
   - {fileID: 3131259359651903242}

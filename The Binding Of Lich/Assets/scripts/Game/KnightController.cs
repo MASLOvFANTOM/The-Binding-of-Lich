@@ -30,12 +30,17 @@ public class KnightController : ParentCharactrsController
         }
     }
 
-    public override void GetDamage(int monsterDamage)
+    public override void GetDamage(int monsterDamage, bool spawnBlood)
     {
         if (!invulnerable)
         {
             if (shieldUp && stamina > monsterDamage * 20) stamina -= monsterDamage * 20;
             else health -= monsterDamage;
+            if (spawnBlood)
+            {
+                Vector3 spawnPos = new Vector3(transform.position.x, transform.position.y, 1.4f);
+                Instantiate(particleBlood, spawnPos, Quaternion.identity);
+            }
             getDamageAnimation.Play("GetDamage");
             camera.GetComponent<CameraController>().CameraShake();
             StartCoroutine(InvulnerableTimer());

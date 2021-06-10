@@ -12,6 +12,7 @@ TagManager:
   - PlayerCollision
   - obstacle
   - minimap camera
+  - RoomMaster
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - enemy Collision
   - room
   - mini map view
-  - 
+  - trap
   - 
   - 
   - 
