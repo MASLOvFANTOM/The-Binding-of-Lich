@@ -31,7 +31,7 @@ public class AttackZone : MonoBehaviour
             if (canAttack)
             {
                 ParentCharactrsController characterController = GameObject.FindGameObjectWithTag("Player").GetComponent<ParentCharactrsController>();
-                characterController.GetDamage(damage);
+                characterController.GetDamage(damage, true);
                 canAttack = false;
                 StartCoroutine(AttackCoolDown());
             }

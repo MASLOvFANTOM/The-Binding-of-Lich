@@ -4951,7 +4951,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474a202101941704e92b6c974477292d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 21
   burningTime: 4
 --- !u!250 &7350002420518966788
 PointEffector2D:

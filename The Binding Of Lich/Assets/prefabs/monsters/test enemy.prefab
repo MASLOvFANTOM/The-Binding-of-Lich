@@ -68,7 +68,7 @@ MonoBehaviour:
   health: 3
   firstDead: 0
   myRoom: {fileID: 0}
-  bloodParticle: {fileID: 8844879577799984626}
+  bloodParticle: {fileID: 3634447752582136767, guid: 1adac3b5e6e11684687ad9dd0a5fdd62, type: 3}
   _enemyFollow: {fileID: 0}
   _attackZone: {fileID: 0}
   _animator: {fileID: 3128344060954426301}
@@ -420,10 +420,5 @@ PrefabInstance:
 --- !u!4 &5855484450624161307 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1841314675883950166, guid: ed4d1a628056f7f4597376824fda5158, type: 3}
-  m_PrefabInstance: {fileID: 5246541715916981837}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &8844879577799984626 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3634447752582136767, guid: ed4d1a628056f7f4597376824fda5158, type: 3}
   m_PrefabInstance: {fileID: 5246541715916981837}
   m_PrefabAsset: {fileID: 0}
