@@ -8,21 +8,22 @@ using UnityEditor;
 public class ParentCharactrsController : MonoBehaviour
 {
     [Header("Параметры игрока")]
-    public float health;
-    public float maxHealth;
-    public float stamina, maxStamina;
-    public int mana, maxMana;
-    public int damage;
-    [Tooltip("Скорость")]public float realSpeed, boostSpeed, lockedSpeed;
-    [Tooltip("Блокирование действий")]public bool lockedBoost, lockedMove;
-    [Tooltip("Бессмертие")]public bool invulnerable;
-    [Tooltip("Перемещение из комнаты в комнату")]public bool moveRoom;
+    public float health; // Жизни
+    public float maxHealth; // Максимм жизней
+    public float stamina, maxStamina; // Стамина; Максимальная стамина
+    public int mana, maxMana; // Мана; Максимальная мана
+    public int damage; // Урон игрока
+    public int criticalChance = 10; // Шанс Крита
+    [Tooltip("Скорость")]public float realSpeed, boostSpeed, lockedSpeed; // Скорость движения
+    [Tooltip("Блокирование действий")]public bool lockedBoost, lockedMove; // Блокировка
+    [Tooltip("Бессмертие")]public bool invulnerable; // Бессмертие
+    [Tooltip("Перемещение из комнаты в комнату")]public bool moveRoom; // Перемещаюсь-ли по комноте
     
     [Space]
-    public Camera camera;
+    public Camera camera; // Камера
     
     [Header("Списки")]
-    public Transform[] allObjectForFlip;
+    public Transform[] allObjectForFlip; // Все объектв для разворота
 
     [Header("Другое")]
     public Image fillStaminaBar, fillHealthBar, fillManaBar;
@@ -30,11 +31,10 @@ public class ParentCharactrsController : MonoBehaviour
     public Transform pointAttack;
     public Animator _animator;
     public Animation getDamageAnimation;
-    public SpriteRenderer _SpriteRenderer;
-    public Animator ParticleSystemAnimator;
-    public GameObject particleBlood;
+    public Animator dustParticlemAnimator; // Партиклы бега
+    public GameObject particleBlood; // Партикллы крови
     public ParticleSystem[] moreEffectParticle; // 0 --> fire; 1 --> bleeding; 2 --> blindness; 3 --> poison; 4 --> freeze
-    public Animator BlindnessAnimator;
+    public Animator BlindnessAnimator; // Слерота
 
     private void Awake()
     {
@@ -62,7 +62,7 @@ public class ParentCharactrsController : MonoBehaviour
         
         Boost(xAxis, yAxis);
         _animator.SetFloat("run", Mathf.Abs(xAxis) + Mathf.Abs(yAxis)); // включение анимации бега
-        ParticleSystemAnimator.SetFloat("run", Mathf.Abs(xAxis) + Mathf.Abs(yAxis)); // включение анимации у частиц
+        dustParticlemAnimator.SetFloat("run", Mathf.Abs(xAxis) + Mathf.Abs(yAxis)); // включение анимации у частиц
     }
 
     public void FlipGraphics(int xDirection) // Переворот всех объектов которые надо перевернуть
@@ -74,7 +74,7 @@ public class ParentCharactrsController : MonoBehaviour
         {
             allObjectForFlip[i].rotation = Quaternion.Euler(0, xDirection, 0);
         }
-        ParticleSystemAnimator.transform.rotation = Quaternion.Euler(-90, xDirection * -1, 0);
+        dustParticlemAnimator.transform.rotation = Quaternion.Euler(-90, xDirection, 0);
     }
 
     public void ChangePosPointAttack() // Изменение положения точки атаки.
@@ -107,14 +107,20 @@ public class ParentCharactrsController : MonoBehaviour
         }
     }
 
-    public virtual void GetDamage(int monsterDamage, bool spawnBlood) // Когда получил урон
+    public virtual void GetDamage(int monsterDamage, bool spawnBlood, bool poison) // Когда получил урон
     {
         health -= monsterDamage;
         getDamageAnimation.Play("GetDamage");
-        if(spawnBlood) Instantiate(particleBlood, transform.position, Quaternion.identity);
+        if(spawnBlood) SpawnBloodParticle();
     }
 
-    public IEnumerator InvulnerableTimer() // Таймер на бессмертие
+    public void SpawnBloodParticle() // Кровь при поллучении урона
+    {
+        Vector3 newPos = new Vector3(transform.position.x, transform.position.y, 1.5f);
+        Instantiate(particleBlood, newPos, Quaternion.Euler(-90, 0, 0));
+    }
+
+    public IEnumerator InvulnerableTimer() // Таймер бессмертия
     {
         invulnerable = true;
         yield return new WaitForSeconds(0.7f);
@@ -135,7 +141,7 @@ public class ParentCharactrsController : MonoBehaviour
         moreEffectParticle[0].Play();
         for (int i = 0; i < time; i++)
         {
-            GetDamage(1, false);
+            GetDamage(1, false, true);
             yield return new WaitForSeconds(1f);
         }
         moreEffectParticle[0].Stop();
@@ -146,7 +152,7 @@ public class ParentCharactrsController : MonoBehaviour
         moreEffectParticle[1].Play();
         for (int i = 0; i < time; i++)
         {
-            GetDamage(1, false);
+            GetDamage(1, false, true);
             yield return new WaitForSeconds(1f);
         }
         moreEffectParticle[1].Stop();
@@ -169,7 +175,7 @@ public class ParentCharactrsController : MonoBehaviour
         moreEffectParticle[3].Play();
         for (int i = 0; i < time; i++)
         {
-            GetDamage(1, false);
+            GetDamage(1, false, true);
             yield return new WaitForSeconds(1f);
         }
         moreEffectParticle[3].Stop();

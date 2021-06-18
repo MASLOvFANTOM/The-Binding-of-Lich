@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 3354907377826864569}
   - component: {fileID: 38904441234600180}
   - component: {fileID: 2706539980456375721}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: knight
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -369,7 +369,8 @@ MonoBehaviour:
   maxStamina: 110
   mana: 1
   maxMana: 1
-  damage: 2
+  damage: 13
+  criticalChance: 10
   realSpeed: 5
   boostSpeed: 5.5
   lockedSpeed: 5
@@ -401,7 +402,7 @@ MonoBehaviour:
   - {fileID: 7667190202845726137}
   BlindnessAnimator: {fileID: 0}
   attackRange: 0.6
-  attackCoolDown: 1
+  attackCoolDown: 0.4
   shieldUp: 0
 --- !u!61 &38904441234600180
 BoxCollider2D:

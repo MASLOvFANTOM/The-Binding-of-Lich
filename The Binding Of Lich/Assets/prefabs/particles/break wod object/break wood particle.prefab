@@ -44,7 +44,7 @@ ParticleSystem:
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
-  ringBufferMode: 0
+  ringBufferMode: 1
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
@@ -115,7 +115,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -1379,7 +1379,7 @@ ParticleSystem:
         ctime7: 0
         atime0: 0
         atime1: 1542
-        atime2: 63608
+        atime2: 65535
         atime3: 65150
         atime4: 0
         atime5: 0
@@ -1387,7 +1387,7 @@ ParticleSystem:
         atime7: 0
         m_Mode: 0
         m_NumColorKeys: 2
-        m_NumAlphaKeys: 4
+        m_NumAlphaKeys: 2
       minGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1590,8 +1590,8 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 3
-      scalar: -7
-      minScalar: 7
+      scalar: 0
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:

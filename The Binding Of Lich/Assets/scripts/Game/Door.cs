@@ -7,10 +7,10 @@ using DG.Tweening;
 
 public class Door : MonoBehaviour
 {
-    public bool open;
+    public bool open; // Открыта ли
     private SpriteRenderer _spriteRenderer;
     public Sprite[] sprites; // 0 --> open; 1 --> close;
-    public GameObject teleportationPoint;
+    public GameObject teleportationPoint; // Куда телепортировать игрока
 
 
     private void Start()
@@ -18,32 +18,28 @@ public class Door : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.K)) OpenDoor();
-        if(Input.GetKeyDown(KeyCode.J)) CloseDoor();
-    }
-
-    public void CloseDoor()
+    public void CloseDoor() // Закрытие двери
     {
         _spriteRenderer.sprite = sprites[1];
         open = false;
     }
 
-    IEnumerator OpenDoor()
+    IEnumerator OpenDoor() // Открытие двери
     {
         yield return new WaitForSeconds(0.5f);
         _spriteRenderer.sprite = sprites[0];
         open = true;
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other) // Если игрок в триггере
     {
-        if (open)
+        if (open) // Дверь открыта
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag("Player")) // Если игрок
             {
                 ParentCharactrsController _charactrsController = other.GetComponent<ParentCharactrsController>();
+                
+                // Переместить игрока в след. комнату
                 if (!_charactrsController.moveRoom)
                 {
                     other.transform.DOMoveX(teleportationPoint.transform.position.x, 0.2f);

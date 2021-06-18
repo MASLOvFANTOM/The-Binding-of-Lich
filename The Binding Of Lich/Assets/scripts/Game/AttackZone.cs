@@ -6,39 +6,35 @@ using UnityEngine;
 
 public class AttackZone : MonoBehaviour
 {
-    public bool canAttack = true;
+    public bool canAttack = true, attackInteractiveOBJ;
     public int damage = 1;
     public float coolDown = 1f;
-    public Transform lookAtPlayer;
-    public Transform player;
-
-    private void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-    }
-
-    private void Update()
-    {
-        lookAtPlayer.LookAt(player);
-        lookAtPlayer.rotation = Quaternion.Euler(0,0, (lookAtPlayer.rotation.y * lookAtPlayer.rotation.x) * 100);
-    }
 
     private void OnTriggerStay2D(Collider2D other)
     {
         // Нанесение урона
-        if (other.gameObject.CompareTag("PlayerCollision"))
+        if (canAttack)
         {
-            if (canAttack)
+            if (other.gameObject.CompareTag("PlayerCollision")) // Удар по игроку
             {
                 ParentCharactrsController characterController = GameObject.FindGameObjectWithTag("Player").GetComponent<ParentCharactrsController>();
-                characterController.GetDamage(damage, true);
-                canAttack = false;
+                characterController.GetDamage(damage, false, false);
+                StartCoroutine(AttackCoolDown());
+            }
+            
+            if (other.CompareTag("canAttacked") && other.gameObject.layer == 7 && attackInteractiveOBJ) // Удар по интерактивны объектам
+            {
+                MainEnemyParametrs enemyParametrs = other.GetComponent<MainEnemyParametrs>();
+                enemyParametrs.GetDamage(damage * 7, false);
                 StartCoroutine(AttackCoolDown());
             }
         }
+
+        
     }
-    IEnumerator AttackCoolDown() // Отчет времени без атаки
+    IEnumerator AttackCoolDown() // Задержка после удара
     {
+        canAttack = false;
         yield return new WaitForSeconds(coolDown);
         canAttack = true;
         StopCoroutine(AttackCoolDown());

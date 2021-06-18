@@ -12,12 +12,14 @@ TagManager:
   - PlayerCollision
   - obstacle
   - minimap camera
-  - RoomMaster
+  - GameAssets
+  - Item Description Tab
+  - Inventory Item
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - player Collision

@@ -24,36 +24,36 @@ public class CameraController : MonoBehaviour
         Invoke("SerializeParametrs", 0.2f);
     }
 
-    private void SerializeParametrs()
+    private void SerializeParametrs() // Определление параметров
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        miniMapCamera = GameObject.FindGameObjectWithTag("minimap camera").GetComponent<Animator>();
+        player = GameObject.FindGameObjectWithTag("Player"); // Определение игрока
+        miniMapCamera = GameObject.FindGameObjectWithTag("minimap camera").GetComponent<Animator>(); // определение миникарты аниматора
     }
 
     private void Update()
     {
-        Move();
-        LevelRestart();
-        if(Input.GetKeyDown(KeyCode.K)) CameraShake();
+        Move(); // Движение за игроком
+        LevelRestart(); // Рестарт уровня
         ChangeStateMiniMapCamera();
     }
 
-    public void ChangeStateMiniMapCamera()
+    public void ChangeStateMiniMapCamera() // Изменение положений мини-карты
     {
         if (Input.GetKeyDown(KeyCode.Tab)) tabPressed = !tabPressed;
         miniMapAnimator.SetBool("big map", tabPressed);
         miniMapCamera.SetBool("big", tabPressed);
     }
 
-    public void CameraShake()
+    public void CameraShake() // Анимация тряски
     {
-        cameraAnimator.SetTrigger("shake");
+        cameraAnimator.SetTrigger("shake"); 
     }
 
     private void Move() // Движение за игроком
     {
-        Vector3 newPos = new Vector3(player.transform.position.x, player.transform.position.y, 0);
-        cameraEmpty.transform.DOMove(newPos, 0.4f);
+        
+        Vector3 newPos = new Vector3(player.transform.position.x, player.transform.position.y, 0); // правильная позиция для камеры
+        cameraEmpty.transform.DOMove(newPos, 0.4f); // движение камеры
     }
 
     public void LevelRestart() // Рестарт уровня

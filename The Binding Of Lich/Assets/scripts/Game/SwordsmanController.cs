@@ -29,9 +29,9 @@ public class SwordsmanController : MainEnemyParametrs
         Destroy(gameObject);
     }
 
-    public override void GetDamage(int damage)
+    public override void GetDamage(int damage, bool critical)
     {
-        base.GetDamage(damage);
+        base.GetDamage(damage, critical);
         StartCoroutine(BloodParticleStart());
     }
     

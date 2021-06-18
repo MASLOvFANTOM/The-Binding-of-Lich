@@ -5,7 +5,7 @@ public class LevelManager : MonoBehaviour
 {
 
     [Header("Level parametrs")]
-    public int maxLevel;
+    public int startLevel;
     public int level;
     
     [Header("Level information object")]
@@ -14,17 +14,16 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        int countFinishGame = PlayerPrefs.GetInt("count finish game");
-        maxLevel = (countFinishGame + 4);
-        maxLevel = Mathf.Clamp(maxLevel, 4, 7);
-        level = maxLevel;
-        ShowLevelInformation(level);
+        int countFinishGame = PlayerPrefs.GetInt("count finish game"); //
+        startLevel = (countFinishGame + 4); // Стартовый уровень
+        startLevel = Mathf.Clamp(startLevel, 4, 7); // ограничить стартовый уровень
+        level = startLevel; // текущий уровень
+        ShowLevelInformation(level); // Показать информацию о уровне
     }
 
-    private void ShowLevelInformation(int level)
+    private void ShowLevelInformation(int level) // Показать информацию о уровне 
     {
-        levelInformation.text = "Level: " + level;
-        levelInformationAnimator.SetTrigger("show-hide");
-        print("Level: " + level);
+        levelInformation.text = "Level: " + level; // Текст
+        levelInformationAnimator.SetTrigger("show-hide"); // Анимация
     }
 }

@@ -4,8 +4,8 @@ using Random = UnityEngine.Random;
 
 public class Room : MonoBehaviour
 {
-    public bool clearRoom;
-    public bool monstersSpawned;
+    public bool clearRoom; // Зачищена ли комната
+    public bool monstersSpawned; // Монстры заспавнены
     [Tooltip("Стартавая комната не создаёт врагов")]public bool startRoom;
     public RoomTemplate _roomTemplate;
     [Tooltip("Тёмное покрытие комнаты")]public Animation roomDark;
@@ -32,13 +32,12 @@ public class Room : MonoBehaviour
     public GameObject trapsSpawnPointParent;
     public GameObject interactiveObjSpawnPointParent;
     public GameObject monsterSpawnPointParent;
-    public RoomMasterSpawn _RoomMasterSpawn;
-    public GameObject test;
-    
+    public GameAssets _RoomMasterSpawn;
+
 
     private void Start()
     {
-        _RoomMasterSpawn = GameObject.FindGameObjectWithTag("RoomMaster").GetComponent<RoomMasterSpawn>();
+        _RoomMasterSpawn = GameObject.FindGameObjectWithTag("GameAssets").GetComponent<GameAssets>();
         _roomTemplate = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplate>();
         monstersInRoomForSpawn = _roomTemplate.monsters;
         if (startRoom)
@@ -47,11 +46,11 @@ public class Room : MonoBehaviour
             clearRoom = true;
             OpenDoor();
         }
-        SetObjForSpawn();
-        SetSpawnPoints();
+        SetObjForSpawn(); // Указать все объекты для спавна
+        SetSpawnPoints(); // Указать все точки спавна объектов
     }
 
-    private void SetSpawnPoints()
+    private void SetSpawnPoints() // Указать все точки спавна объектов
     {
         for (int i = 0; i < trapsSpawnPointParent.transform.childCount; i++)
         {
@@ -67,17 +66,16 @@ public class Room : MonoBehaviour
         }
     }
 
-    public void SetObjForSpawn()
+    public void SetObjForSpawn() // Указать все объекты для спавна
     {
         monstersInRoomForSpawn = _RoomMasterSpawn.monsterForSpawnLevelOne;
         trapsInRoomForSpawn = _RoomMasterSpawn.trapsForSpawn;
-        interactiveObjForSpawn = _RoomMasterSpawn.minteractiveObjForSpawn;
-        test = _RoomMasterSpawn.test;
+        interactiveObjForSpawn = _RoomMasterSpawn.interactiveObjForSpawn;
     }
 
     private void FixedUpdate()
     {
-        CheckClearRoom();
+        CheckClearRoom(); // Проверка на зачистку комнаты
     }
 
     private void CheckClearRoom() // Проверка на зачистку комнаты
@@ -113,20 +111,27 @@ public class Room : MonoBehaviour
         for (int i = 0; i < monsterSpawnPoints.Count; i++)
         {
             int rand = Random.Range(0, monstersInRoomForSpawn.Length);
-            GameObject monster = Instantiate(monstersInRoomForSpawn[rand], monsterSpawnPoints[i].position, Quaternion.identity);
+            
+            // Добавить newPos для оси Z
+            Vector3 newPos = monsterSpawnPoints[i].position;
+            newPos.z = -1;
+            
+            GameObject monster = Instantiate(monstersInRoomForSpawn[rand], newPos, Quaternion.identity);
             monster.GetComponent<MainEnemyParametrs>().myRoom = this;
+            
             monstersInRoom.Add(monster);
         }
 
         monstersSpawned = true;
     }
 
-    public void SpawnTraps()
+    public void SpawnTraps() // Спавн ловушек в комнате
     {
         for (int i = 0; i < trapsSpawnPoint.Count; i++)
         {
             int rand = Random.Range(0, 101);
             int randObj = Random.Range(0, trapsInRoomForSpawn.Length);
+            
             if (rand > 50)
             {
                 Vector3 newPos = trapsSpawnPoint[i].transform.position;
@@ -138,7 +143,7 @@ public class Room : MonoBehaviour
         }
     }
 
-    public void SpawnInteractiveObjects()
+    public void SpawnInteractiveObjects() // Спавн интерактивных объектов
     {
         for (int i = 0; i < interactiveObjSpawnPoint.Count; i++)
         {
@@ -153,15 +158,15 @@ public class Room : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other) // Стартуется, Если комната не зачищена
     {
         if (other.CompareTag("Player") && !clearRoom) // Стартовать прохождение комнаты если не зачищена
         {
             roomDark.Play("fade off");
-            SpawnMonsters();
-            SpawnTraps();
-            SpawnInteractiveObjects();
-            CloseDoor();
+            SpawnMonsters(); // Спавн монстров
+            SpawnTraps(); // Спавн ловушек
+            SpawnInteractiveObjects(); // Спавн интерактивных объектов
+            CloseDoor(); // Закрыть двери
         }
     }
 

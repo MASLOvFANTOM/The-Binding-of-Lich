@@ -61,7 +61,6 @@ public class RoomSpawner : MonoBehaviour
     {
         if (other.CompareTag("CenterRoom"))
         {
-            print("Center room check");
             Destroy(gameObject);
         }
         

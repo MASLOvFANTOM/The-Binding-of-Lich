@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7975718357651271190}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 1.21, y: -1.14, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -40,11 +40,11 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7975718357651271190}
   serializedVersion: 7
-  lengthInSec: 1
+  lengthInSec: 0.1
   simulationSpeed: 1
   stopAction: 2
   cullingMode: 0
-  ringBufferMode: 0
+  ringBufferMode: 1
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
@@ -115,7 +115,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 25
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -220,9 +220,9 @@ ParticleSystem:
         m_RotationOrder: 4
     startColor:
       serializedVersion: 2
-      minMaxState: 0
-      minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.27684057, g: 0.6132076, b: 0.26900142, a: 1}
+      minMaxState: 2
+      minColor: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 0.8}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -283,9 +283,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     startSize:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
-      minScalar: 1
+      minScalar: 0.7
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -336,7 +336,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -389,7 +389,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -1353,7 +1353,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 1
+    enabled: 0
     gradient:
       serializedVersion: 2
       minMaxState: 1
@@ -1379,7 +1379,7 @@ ParticleSystem:
         ctime7: 0
         atime0: 0
         atime1: 578
-        atime2: 58211
+        atime2: 65535
         atime3: 65150
         atime4: 0
         atime5: 0
@@ -1387,7 +1387,7 @@ ParticleSystem:
         atime7: 0
         m_Mode: 0
         m_NumColorKeys: 2
-        m_NumAlphaKeys: 4
+        m_NumAlphaKeys: 3
       minGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1521,8 +1521,8 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     speedRange: {x: 0, y: 1}
-    tilesX: 2
-    tilesY: 2
+    tilesX: 3
+    tilesY: 4
     animationType: 1
     rowIndex: 0
     cycles: 1
@@ -1537,8 +1537,8 @@ ParticleSystem:
     x:
       serializedVersion: 2
       minMaxState: 3
-      scalar: -6
-      minScalar: 6
+      scalar: -20
+      minScalar: 20
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1590,8 +1590,8 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 3
-      scalar: -6
-      minScalar: 6
+      scalar: 0
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1643,8 +1643,8 @@ ParticleSystem:
     z:
       serializedVersion: 2
       minMaxState: 3
-      scalar: -6
-      minScalar: 6
+      scalar: -20
+      minScalar: 20
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2676,7 +2676,7 @@ ParticleSystem:
     drag:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20.6
+      scalar: 209.2
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4807,7 +4807,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f73292deb003e8048ae024bfc131e038, type: 2}
+  - {fileID: 2100000, guid: e9a1b8fcf5c969e49a6ca28234003ace, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -7,82 +7,81 @@ using Random = UnityEngine.Random;
 public class KnightController : ParentCharactrsController
 {
     [Header("For KnightController")]
-    private Rigidbody2D rb;
-    public float attackRange;
-    private bool canAttack = true;
-    public float attackCoolDown;
-    public bool shieldUp;
+    private Rigidbody2D rb; // RigidBody
+    public float attackRange; // Радиус зоны атаки
+    private bool canAttack = true; // Можно ли атаковать
+    public float attackCoolDown; // CoolDown атаки
+    public bool shieldUp; // Поднят ли щит
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>(); // Определение RigidBody
     }
 
     private void Update()
     {
-        Move(rb);
-        ManaAndHealthControl();
-        ChangePosPointAttack();
-        ShieldUpDown();
-        if (canAttack && Input.GetMouseButtonDown(0) && !shieldUp)
+        Move(rb); // Движение
+        ManaAndHealthControl(); // Настройка и показ маны и жизней
+        ChangePosPointAttack(); // Поворот точки атаки к машке
+        ShieldUpDown(); // Проверка на поднятие щита
+        if (canAttack && Input.GetMouseButtonDown(0) && !shieldUp) // Если можно атаковать и щит опущен
         {
-            Attack();
+            Attack(); // Атака 
         }
     }
 
-    public override void GetDamage(int monsterDamage, bool spawnBlood)
+    public override void GetDamage(int monsterDamage, bool spawnBlood, bool shieldIgnore)
     {
-        if (!invulnerable)
+        if (!invulnerable) // не бессмертный 
         {
-            if (shieldUp && stamina > monsterDamage * 20) stamina -= monsterDamage * 20;
-            else health -= monsterDamage;
-            if (spawnBlood)
-            {
-                Vector3 spawnPos = new Vector3(transform.position.x, transform.position.y, 1.4f);
-                Instantiate(particleBlood, spawnPos, Quaternion.identity);
-            }
-            getDamageAnimation.Play("GetDamage");
-            camera.GetComponent<CameraController>().CameraShake();
-            StartCoroutine(InvulnerableTimer());
-        }
-    }
+            if (shieldUp && stamina > monsterDamage * 1.5 && !shieldIgnore) stamina -= monsterDamage * 1.5f; // Если щит поднят
+            else health -= monsterDamage; // Если щит опущен
+            
+            // if (spawnBlood) SpawnBloodParticle();// Спавн крови
 
-    public void CameraGetDamage(int range)
-    {
-        for (int i = 0; i < range; i++)
-        {
-            float rand = Random.Range(-0.5f, 0.5f);
-            Vector3 newPos = new Vector3(camera.transform.position.x + rand, camera.transform.position.y + rand, -10);
-            camera.transform.DOMove(newPos, 0.01f);
+            getDamageAnimation.Play("GetDamage"); // Анимация получения урона(Player)
+            camera.GetComponent<CameraController>().CameraShake(); // Тряска камеры
+            StartCoroutine(InvulnerableTimer()); // Таймер бессмертия
         }
     }
-    private void Attack()
+    private void Attack() // Атака 
     {
         StartCoroutine(AttackCoolDown()); // CoolDown
 
-        // Animation & attack processing;
-        _animator.SetTrigger("attack");
-        Collider2D[] allAttackedObjects = Physics2D.OverlapCircleAll(pointAttack.position, attackRange);
+        _animator.SetTrigger("attack"); // Animation
+        
+        //Attack
+        Collider2D[] allAttackedObjects = Physics2D.OverlapCircleAll(pointAttack.position, attackRange); // Определение области атаки
         for (int i = 0; i < allAttackedObjects.Length; i++)
         {
-            if (allAttackedObjects[i].gameObject.CompareTag("canAttacked"))
+            if (allAttackedObjects[i].gameObject.CompareTag("canAttacked")) // Если у объекта тэе CanAttacked
             {
-                allAttackedObjects[i].gameObject.GetComponent<MainEnemyParametrs>().GetDamage(damage);
+                int randCriticalChance = Random.Range(0, 101); // Шанс крита
+                int newDamage = Random.Range(damage - 2, damage + 3); // Рандомный крон
+                bool critical = false;  
+
+                if (randCriticalChance < criticalChance) // Если выпал крит
+                {
+                    newDamage = newDamage * 3; // новый крит урон
+                    critical = true; 
+                }
+                
+                allAttackedObjects[i].gameObject.GetComponent<MainEnemyParametrs>().GetDamage(newDamage, critical); // Нанесение крона
             }
         }
     }
 
-    public void ShieldUpDown()
+    public void ShieldUpDown() // Поднятие спуск щита
     {
-        bool mouseDown = Input.GetMouseButton(1);
-        _animator.SetBool("shieldUp", mouseDown);
-        realSpeed = lockedSpeed / (Convert.ToInt16(mouseDown) + 1);
-        shieldUp = mouseDown;
+        bool mouseDown = Input.GetMouseButton(1); // мышь нажата
+        _animator.SetBool("shieldUp", mouseDown); // Анимация 
+        realSpeed = lockedSpeed / (Convert.ToInt16(mouseDown) + 1); // Уменьшение скорости
+        shieldUp = mouseDown; // переменная 
     }
 
-    IEnumerator AttackCoolDown()
+    IEnumerator AttackCoolDown() // Задержка после удара
     {
-        canAttack = false;
+        canAttack = false; // Запрет Атаки
         yield return new WaitForSeconds(attackCoolDown);
         canAttack = true;
         StopCoroutine(AttackCoolDown());

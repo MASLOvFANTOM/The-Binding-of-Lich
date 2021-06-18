@@ -3,20 +3,20 @@ using UnityEngine;
 
 public class Trap : MonoBehaviour
 {
-    [Range(0, 10)]public int damage;
-    [Range(0, 20)] public int time;
-    public string trapEffect;
-    public bool activated;
-    public SpriteRenderer _SpriteRenderer;
-    public Sprite activitedSprite;
+    [Range(0, 10)]public int damage; // Урон
+    [Range(0, 20)] public int time; // Время действия эффекта
+    public string trapEffect; // Имя эффета
+    public bool activated; // Актиаировано-ли
+    public SpriteRenderer _SpriteRenderer; // Спрайтрендерер
+    public Sprite activitedSprite; // Активированное состояние
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!activated)
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag("Player")) // Если игрок
             {
-                other.GetComponent<ParentCharactrsController>().GetDamage(damage, true);
+                other.GetComponent<ParentCharactrsController>().GetDamage(damage, true, true);
                 ParentCharactrsController charactrsController = other.GetComponent<ParentCharactrsController>();
                 activated = true;
                 _SpriteRenderer.sprite = activitedSprite;

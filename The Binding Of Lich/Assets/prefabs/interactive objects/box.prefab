@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7256602834972641956}
   - component: {fileID: 7256602834972641959}
   - component: {fileID: 7256602834972641958}
+  - component: {fileID: 1773947645859008288}
   - component: {fileID: 7256602834972641957}
   m_Layer: 7
   m_Name: box
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7256602834972641953}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.5, y: 5.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -110,6 +111,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.5}
   m_EdgeRadius: 0
+--- !u!50 &1773947645859008288
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7256602834972641953}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &7256602834972641957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,15 +144,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13f43ffe7a47c9e42b42d0264a3b2c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 10
   firstDead: 0
   myRoom: {fileID: 0}
+  _GameAssets: {fileID: 0}
   deadSprite: {fileID: 21300000, guid: e06c2e26edce98247b5d86e99d7ad96d, type: 3}
   _SpriteRenderer: {fileID: 7256602834972641959}
-  deadParticle: {fileID: 7335243768362301966, guid: 35415330f285df04fb227452ec73766b, type: 3}
+  dustParticle: {fileID: 7335243768362301966, guid: 35415330f285df04fb227452ec73766b, type: 3}
   breakParticle: {fileID: 7975718357651271190, guid: ae97e27d42d3e704cb6d302fa5adbcb3, type: 3}
   forDead:
   - {fileID: 7256602834972641957}
   - {fileID: 7256602834972641958}
+  - {fileID: 7256602834972641959}
   drop: []
   rangeChanceDrop: 0
