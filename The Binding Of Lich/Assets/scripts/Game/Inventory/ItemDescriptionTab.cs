@@ -30,7 +30,7 @@ public class ItemDescriptionTab : MonoBehaviour
 
     public void PressUse()
     {
-        if (_InventoryItem.meCount > 0)
+        if (_InventoryItem._InventoryItemData.meCount > 0)
         {
             _InventoryItem.Effect();
             Hide();

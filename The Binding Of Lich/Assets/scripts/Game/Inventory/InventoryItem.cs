@@ -6,44 +6,45 @@ using Random = UnityEngine.Random;
 
 public class InventoryItem : MonoBehaviour
 {
-    public string description;
-    // public string meEffectTag;
-    public int meCount = 0;
-    public Text meCountText;
+    public InventoryItemData _InventoryItemData;
     public Image image;
+    public Text meCountText;
     private Text text;
     public ParentCharactrsController _CharactrsController;
     public ItemDescriptionTab _ItemDescriptionTab;
 
 
-    private void Start()
+    private void Start() // Инициализация
     {
+        image = GetComponentInChildren<Image>();
+        image.sprite = _InventoryItemData.mainSprite;
         meCountText = GetComponentInChildren<Text>();
         _CharactrsController = GameObject.FindGameObjectWithTag("Player").GetComponent<ParentCharactrsController>();
         _ItemDescriptionTab = GameObject.FindGameObjectWithTag("Item Description Tab").GetComponent<ItemDescriptionTab>();
-        image = GetComponentInChildren<Image>();
         text = GetComponentInChildren<Text>();
+
+        _InventoryItemData.meCount = 0;
     }
 
     private void Update()
     {
-        if (meCount == 0)
+        if (_InventoryItemData.meCount == 0) // Если в инвенторе нет
         {
             transform.SetSiblingIndex(transform.parent.childCount);
             image.gameObject.SetActive(false);
             text.gameObject.SetActive(false);
         }
-        else
+        else // Если есть
         {
-            meCountText.text = meCount.ToString();
+            meCountText.text = _InventoryItemData.meCount.ToString();
             image.gameObject.SetActive(true);
             text.gameObject.SetActive(true);
         }
     }
 
-    public void Effect()
+    public void Effect() // эффекты
     {
-        meCount--;
+        _InventoryItemData.meCount--;
         switch (name)
         {
             case "mushroom blue":
@@ -70,6 +71,6 @@ public class InventoryItem : MonoBehaviour
 
     public void MouseDown()
     {
-        _ItemDescriptionTab.SetUp(description, this);
+        _ItemDescriptionTab.SetUp(_InventoryItemData.description, this);
     }
 }
