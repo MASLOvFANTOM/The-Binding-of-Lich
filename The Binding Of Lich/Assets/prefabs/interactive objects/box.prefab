@@ -156,5 +156,9 @@ MonoBehaviour:
   - {fileID: 7256602834972641957}
   - {fileID: 7256602834972641958}
   - {fileID: 7256602834972641959}
-  drop: []
-  rangeChanceDrop: 0
+  drop:
+  - {fileID: 5434003185992180590, guid: 8e16bc73b3e460742b72ebfe5dfb7cc2, type: 3}
+  - {fileID: 6115194757080535067, guid: 907c0e302476da347bf54969e39ad03e, type: 3}
+  - {fileID: 7012621799658660240, guid: 13fb7c06af3281046b7e838882ca8a7c, type: 3}
+  rangeChanceDrop: 10
+  dropValue: 2

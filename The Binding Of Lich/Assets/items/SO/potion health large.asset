@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fa3c7d648e1cca409d4d89f140fc08e, type: 3}
-  m_Name: mushroom blue
+  m_Name: potion health large
   m_EditorClassIdentifier: 
-  mainSprite: {fileID: 0}
+  mainSprite: {fileID: 21300000, guid: 6119d2aab083b704a98d16f983b79100, type: 3}
   meCount: 2
-  description: 
+  description: "\u0413\u0438\u0448\u0430\u043D\u0441\u043A\u043E\u0435 \u0437\u0435\u043B\u044C\u0435
+    \u043B\u0435\u0447\u0435\u043D\u0438\u044F"
